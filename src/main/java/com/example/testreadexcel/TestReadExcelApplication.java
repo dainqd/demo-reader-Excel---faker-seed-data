@@ -1,6 +1,7 @@
 package com.example.testreadexcel;
 
 import com.example.testreadexcel.entities.Students;
+import com.example.testreadexcel.entities.seeder.StudentSeeder;
 import com.example.testreadexcel.repositories.StudentRepository;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -21,6 +23,7 @@ public class TestReadExcelApplication {
         SpringApplication.run(TestReadExcelApplication.class, args);
     }
 
+    //    Random students
     @Bean
     CommandLineRunner commandLineRunner() {
         return args -> {
@@ -42,9 +45,14 @@ public class TestReadExcelApplication {
                         faker.address().fullAddress(),
                         room + String.valueOf(faker.number().numberBetween(1000, 9999)),
                         String.valueOf(faker.number().numberBetween(1, 5)));
+                students.setCreatedAt(LocalDateTime.now());
+                students.setCreatedBy(0L);
                 mapStudents.put(i, students);
-                studentRepository.save(students);
+//                studentRepository.save(students);
             }
+
+            StudentSeeder studentSeeder = new StudentSeeder();
+            studentSeeder.createStudents(studentRepository);
         };
     }
 }

@@ -1,5 +1,7 @@
 package com.example.testreadexcel.utils;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
 
 import java.awt.Color;
@@ -10,6 +12,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class ExcelUtils {
     private FileInputStream fis;
     private FileOutputStream fos;
